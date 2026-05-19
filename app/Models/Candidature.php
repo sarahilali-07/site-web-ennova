@@ -27,4 +27,14 @@ class Candidature extends Model
     {
         return $this->nom;
     }
+
+    public function getStatusTranslationKeyAttribute(): string
+    {
+        return match ($this->status) {
+            'accepted' => 'messages.admin.candidates.approved',
+            'rejected' => 'messages.admin.candidates.rejected',
+            'review' => 'messages.admin.candidates.review',
+            default => 'messages.admin.candidates.pending',
+        };
+    }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Candidature;
+use App\Services\CandidateStatusNotificationService;
 use Illuminate\Http\Request;
+use Throwable;
 
 class CandidateController extends Controller
 {
@@ -26,14 +28,35 @@ class CandidateController extends Controller
         return view('admin.candidates.show', compact('candidate'));
     }
 
-    public function updateStatus(Request $request, Candidature $candidate)
+    public function updateStatus(Request $request, Candidature $candidate, CandidateStatusNotificationService $notificationService)
     {
-        $request->validate([
-            'status' => ['required', 'in:pending,accepted,rejected'],
+        $validated = $request->validate([
+            'status' => ['required', 'in:pending,review,accepted,rejected'],
         ]);
 
-        $candidate->update(['status' => $request->input('status')]);
+        $candidate->fill(['status' => $validated['status']]);
 
-        return back()->with('success', 'Statut de candidature mis à jour.');
+        // Only persist and notify when the candidate status actually changes.
+        if (! $candidate->isDirty('status')) {
+            return back()->with('success', __('messages.admin.candidates.status_unchanged'));
+        }
+
+        $candidate->save();
+
+        $response = back()->with('success', __('messages.admin.candidates.status_updated'));
+
+        try {
+            $notificationService->queueStatusEmail($candidate);
+
+            if ($notificationService->shouldNotify($candidate->status)) {
+                $response->with('success', __('messages.admin.candidates.status_updated_email_queued'));
+            }
+        } catch (Throwable $exception) {
+            report($exception);
+
+            $response->with('error', __('messages.admin.candidates.status_updated_email_failed'));
+        }
+
+        return $response;
     }
 }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ session('locale', config('app.locale')) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="@yield('meta_description', 'Ennova - Marketers Ready To Be. Compétition nationale de marketing inter-écoles au Maroc.')">
+    <meta name="description" content="@yield('meta_description', __('messages.home.meta_description'))">
     <title>@yield('title', 'Ennova') | Marketers Ready To Be</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,6 +52,8 @@
         .partner-logo { filter: brightness(0) invert(1); opacity: 0.5; transition: opacity 0.3s; }
         html:not(.dark) .partner-logo { filter: brightness(1) invert(0); }
         .partner-logo:hover { opacity: 1; }
+        html:not(.dark) .site-navbar { background: #ffffff !important; border-color: #e5e7eb !important; color: #111827 !important; }
+        html.dark .site-navbar { background: rgba(10,10,15,0.95) !important; border-color: #1E1E2E !important; color: #ffffff !important; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeInUp 0.6s ease forwards; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -62,7 +64,7 @@
 <body class="antialiased">
 
     {{-- Navigation --}}
-    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-dark-border dark:border-dark-border bg-white dark:bg-dark-default transition-colors" style="background: rgba(10,10,15,0.95); --tw-bg-opacity: 0.95;">
+    <nav class="site-navbar fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-white text-gray-900 dark:border-dark-border dark:text-white transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 {{-- Logo --}}
@@ -70,7 +72,7 @@
 
     <!-- Logo Light Mode -->
     <img 
-        src="{{ asset('images/logolight.png') }}" 
+        src="{{ asset('images/logoDark.png') }}" 
         alt="Ennova Logo"
         class="h-12 w-auto dark:hidden"
     >
@@ -86,59 +88,70 @@
 
                 {{-- Desktop Nav --}}
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="{{ route('home') }}" class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors {{ request()->routeIs('home') ? 'active text-gray-900 dark:text-white' : '' }}">Accueil</a>
-                    <a href="{{ route('competition') }}" class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors {{ request()->routeIs('competition') ? 'active text-gray-900 dark:text-white' : '' }}">Compétition</a>
-                    <a href="{{ route('blog.index') }}" class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors {{ request()->routeIs('blog.*') ? 'active text-gray-900 dark:text-white' : '' }}">Blog</a>
-                    <a href="{{ route('podcast.index') }}" class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors {{ request()->routeIs('podcast.*') ? 'active text-gray-900 dark:text-white' : '' }}">Podcast</a>
-                    <a href="{{ route('associations') }}" class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors {{ request()->routeIs('associations') ? 'active text-gray-900 dark:text-white' : '' }}">Associations</a>
-                    <a href="{{ route('partners') }}" class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors {{ request()->routeIs('partners') ? 'active text-gray-900 dark:text-white' : '' }}">Partenaires</a>
-                    <a href="{{ route('contact') }}" class="nav-link text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors {{ request()->routeIs('contact') ? 'active text-gray-900 dark:text-white' : '' }}">Contact</a>
+                    <a href="{{ route('home') }}" class="nav-link text-sm font-medium text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors {{ request()->routeIs('home') ? 'active text-gray-900 dark:text-white' : '' }}">{{ __('messages.nav.home') }}</a>
+                    <a href="{{ route('competition') }}" class="nav-link text-sm font-medium text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors {{ request()->routeIs('competition') ? 'active text-gray-900 dark:text-white' : '' }}">{{ __('messages.nav.competition') }}</a>
+                    <a href="{{ route('blog.index') }}" class="nav-link text-sm font-medium text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors {{ request()->routeIs('blog.*') ? 'active text-gray-900 dark:text-white' : '' }}">{{ __('messages.nav.blog') }}</a>
+                    <a href="{{ route('podcast.index') }}" class="nav-link text-sm font-medium text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors {{ request()->routeIs('podcast.*') ? 'active text-gray-900 dark:text-white' : '' }}">{{ __('messages.nav.podcast') }}</a>
+                    <a href="{{ route('associations') }}" class="nav-link text-sm font-medium text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors {{ request()->routeIs('associations') ? 'active text-gray-900 dark:text-white' : '' }}">{{ __('messages.nav.associations') }}</a>
+                    <a href="{{ route('partners') }}" class="nav-link text-sm font-medium text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors {{ request()->routeIs('partners') ? 'active text-gray-900 dark:text-white' : '' }}">{{ __('messages.nav.partners') }}</a>
+                    <a href="{{ route('contact') }}" class="nav-link text-sm font-medium text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors {{ request()->routeIs('contact') ? 'active text-gray-900 dark:text-white' : '' }}">{{ __('messages.nav.contact') }}</a>
                 </div>
 
                 {{-- CTA --}}
                 <div class="flex items-center space-x-3">
                     {{-- Theme Toggle --}}
-                    <button data-theme-toggle class="text-gray-600 dark:text-gray-400 hover:text-orange dark:hover:text-orange transition-colors p-2.5 rounded-lg dark:bg-dark-card bg-light-card dark:border-dark-border border border-light-border hover:border-orange/30">
+                    <button data-theme-toggle class="text-gray-800 hover:text-orange dark:text-gray-400 dark:hover:text-orange transition-colors p-2.5 rounded-lg bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border hover:border-orange/30">
                         <svg data-sun-icon class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1m-16 0H1m15.364 1.636l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         <svg data-moon-icon class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                     </button>
 
+                    {{-- Language Switcher --}}
+                    <div class="relative flex items-center">
+                        <a href="{{ route('lang.switch', 'fr') }}" class="text-sm font-medium {{ session('locale', config('app.locale')) == 'fr' ? 'text-orange' : 'text-gray-800 dark:text-gray-400 hover:text-orange dark:hover:text-orange' }} transition-colors px-1.5" title="{{ __('messages.nav.french') }}">
+                            <svg class="w-5 h-5 inline-block" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="480" fill="#fff"/><rect width="213.3" height="480" fill="#002654"/><rect x="426.7" width="213.3" height="480" fill="#ce1126"/></svg>
+                        </a>
+                        <span class="text-gray-800 dark:text-gray-muted text-xs mx-0.5">|</span>
+                        <a href="{{ route('lang.switch', 'en') }}" class="text-sm font-medium {{ session('locale', config('app.locale')) == 'en' ? 'text-orange' : 'text-gray-800 dark:text-gray-400 hover:text-orange dark:hover:text-orange' }} transition-colors px-1.5" title="{{ __('messages.nav.english') }}">
+                            <svg class="w-5 h-5 inline-block" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="480" fill="#012169"/><path d="M0 0l640 480M640 0L0 480" stroke="#fff" stroke-width="60"/><path d="M0 0l640 480M640 0L0 480" stroke="#c8102e" stroke-width="30"/><path d="M0 240h640M320 0v480" stroke="#fff" stroke-width="120"/><path d="M0 240h640M320 0v480" stroke="#c8102e" stroke-width="60"/></svg>
+                        </a>
+                    </div>
+
                     @guest
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors hidden md:block">Connexion</a>
+                        <a href="{{ route('login') }}" class="text-sm text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors hidden md:block">{{ __('messages.nav.login') }}</a>
                     @endguest
 
                     @auth
                         @if(auth()->user()->isAdmin())
                             <a href="{{ route('admin.dashboard') }}" class="bg-orange hover:bg-orange-dark text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors orange-glow">
-                                Admin Panel
+                                {{ __('messages.nav.admin') }}
                             </a>
                         @endif
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
-                            <button type="submit" class="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">Déconnexion</button>
+                            <button type="submit" class="text-sm text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors">{{ __('messages.nav.logout') }}</button>
                         </form>
                     @endauth
 
                     <a href="{{ route('candidature') }}" class="bg-orange hover:bg-orange-dark text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors orange-glow">
-                        Postuler
+                        {{ __('messages.nav.apply') }}
                     </a>
                     {{-- Mobile menu button --}}
-                    <button id="mobile-menu-btn" class="md:hidden text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    <button id="mobile-menu-btn" class="md:hidden text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
                 </div>
             </div>
         </div>
         {{-- Mobile menu --}}
-        <div id="mobile-menu" class="hidden md:hidden border-t border-dark-border dark:border-dark-border bg-white dark:bg-dark transition-colors">
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 dark:border-dark-border bg-white dark:bg-dark-default transition-colors">
             <div class="px-4 py-4 space-y-3">
-                <a href="{{ route('home') }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 transition-colors">Accueil</a>
-                <a href="{{ route('competition') }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 transition-colors">Compétition</a>
-                <a href="{{ route('blog.index') }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 transition-colors">Blog</a>
-                <a href="{{ route('podcast.index') }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 transition-colors">Podcast</a>
-                <a href="{{ route('associations') }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 transition-colors">Associations</a>
-                <a href="{{ route('partners') }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 transition-colors">Partenaires</a>
-                <a href="{{ route('contact') }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 transition-colors">Contact</a>
+                <a href="{{ route('home') }}" class="block text-sm text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white py-2 transition-colors">{{ __('messages.nav.home') }}</a>
+                <a href="{{ route('competition') }}" class="block text-sm text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white py-2 transition-colors">{{ __('messages.nav.competition') }}</a>
+                <a href="{{ route('blog.index') }}" class="block text-sm text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white py-2 transition-colors">{{ __('messages.nav.blog') }}</a>
+                <a href="{{ route('podcast.index') }}" class="block text-sm text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white py-2 transition-colors">{{ __('messages.nav.podcast') }}</a>
+                <a href="{{ route('associations') }}" class="block text-sm text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white py-2 transition-colors">{{ __('messages.nav.associations') }}</a>
+                <a href="{{ route('partners') }}" class="block text-sm text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white py-2 transition-colors">{{ __('messages.nav.partners') }}</a>
+                <a href="{{ route('contact') }}" class="block text-sm text-gray-800 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white py-2 transition-colors">{{ __('messages.nav.contact') }}</a>
             </div>
         </div>
     </nav>
@@ -164,7 +177,7 @@
     </main>
 
     {{-- Footer --}}
-    <footer class="border-t border-dark-border dark:border-dark-border bg-white dark:bg-dark-default transition-colors mt-20">
+    <footer class="border-t border-dark-border dark:border-dark-border bg-white dark:bg-black transition-colors mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
                 <div class="md:col-span-1">
@@ -174,14 +187,14 @@
                         </div>
                         <span class="font-display font-bold text-xl text-gray-900 dark:text-white">ennova</span>
                     </div>
-                    <p class="text-gray-600 dark:text-gray-light text-sm leading-relaxed mb-6">Ennova accompagne les jeunes talents dans leurs projets innovants et créatifs.</p>
+                    <p class="text-gray-600 dark:text-white text-sm leading-relaxed mb-6">{{ __('messages.footer.tagline') }}</p>
                     @if(isset($socialLinks) && $socialLinks->count())
                     <div class="mt-6">
-                        <p class="text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider mb-3">Suivez-nous</p>
+                        <p class="text-gray-500 dark:text-white text-xs uppercase tracking-wider mb-3">{{ __('messages.footer.follow_us') }}</p>
                         <div class="flex space-x-3">
                             @foreach($socialLinks as $link)
                                 @if($link->url)
-                                    <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer" title="{{ $link->platform }}" class="w-9 h-9 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center text-gray-muted hover:text-orange hover:border-orange transition-colors">
+                                    <a href="{{ $link->url }}" target="_blank" rel="noopener noreferrer" title="{{ $link->platform }}" class="w-9 h-9 rounded-lg bg-dark-card dark:bg-black border border-dark-border flex items-center justify-center text-gray-muted dark:text-white hover:text-orange hover:border-orange transition-colors">
                                         @switch($link->platform)
                                             @case('Instagram')
                                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5z"/><path d="M12 7.25a4.75 4.75 0 110 9.5 4.75 4.75 0 010-9.5zm0 1.5a3.25 3.25 0 100 6.5 3.25 3.25 0 000-6.5z"/><circle cx="17.75" cy="6.25" r="1.25"/></svg>
@@ -209,45 +222,45 @@
                     @endif
                 </div>
                 <div>
-                    <h4 class="font-display font-semibold text-gray-900 dark:text-white mb-4">Liens rapides</h4>
+                    <h4 class="font-display font-semibold text-gray-900 dark:text-white mb-4">{{ __('messages.footer.quick_links') }}</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('home') }}" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">Accueil</a></li>
-                        <li><a href="{{ route('competition') }}" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">Compétition</a></li>
-                        <li><a href="{{ route('candidature') }}" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">Candidature</a></li>
-                        <li><a href="{{ route('associations') }}" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">Associations</a></li>
-                        <li><a href="{{ route('podcast.index') }}" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">Podcast</a></li>
+                        <li><a href="{{ route('home') }}" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.home') }}</a></li>
+                        <li><a href="{{ route('competition') }}" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.competition') }}</a></li>
+                        <li><a href="{{ route('candidature') }}" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.apply') }}</a></li>
+                        <li><a href="{{ route('associations') }}" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.associations') }}</a></li>
+                        <li><a href="{{ route('podcast.index') }}" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.podcast') }}</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-display font-semibold text-gray-900 dark:text-white mb-4">Ressources</h4>
+                    <h4 class="font-display font-semibold text-gray-900 dark:text-white mb-4">{{ __('messages.footer.resources') }}</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('blog.index') }}" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">Blog</a></li>
-                        <li><a href="{{ route('partners') }}" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">Partenaires</a></li>
-                        <li><a href="#" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">FAQ</a></li>
-                        <li><a href="#" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">Mentions légales</a></li>
-                        <li><a href="#" class="text-gray-600 dark:text-gray-light text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">Politique de confidentialité</a></li>
+                        <li><a href="{{ route('blog.index') }}" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.blog') }}</a></li>
+                        <li><a href="{{ route('partners') }}" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.partners') }}</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.faq') }}</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.legal') }}</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-white text-sm hover:text-gray-900 dark:hover:text-orange transition-colors">{{ __('messages.footer.privacy') }}</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-display font-semibold text-gray-900 dark:text-white mb-4">Contact</h4>
+                    <h4 class="font-display font-semibold text-gray-900 dark:text-white mb-4">{{ __('messages.footer.contact') }}</h4>
                     <ul class="space-y-3">
-                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-light text-sm">
-                            <svg class="w-4 h-4 text-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+                        <li class="flex items-center space-x-2 text-gray-600 dark:text-white text-sm">
+                            <svg class="w-4 h-4 text-orange dark:text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
                             <a href="mailto:ennova.contact@gmail.com" class="hover:text-orange transition-colors">ennova.contact@gmail.com</a>
                         </li>
-                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-light text-sm">
-                            <svg class="w-4 h-4 text-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+                        <li class="flex items-center space-x-2 text-gray-600 dark:text-white text-sm">
+                            <svg class="w-4 h-4 text-orange dark:text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
                             <a href="tel:+212668435244" class="hover:text-orange transition-colors">+212 668-435244</a>
                         </li>
-                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-light text-sm">
-                            <svg class="w-4 h-4 text-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-                            <span>casablanca, Maroc</span>
+                        <li class="flex items-center space-x-2 text-gray-600 dark:text-white text-sm">
+                            <svg class="w-4 h-4 text-orange dark:text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                            <span>{{ __('messages.contact.info.location') }}</span>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-dark-border dark:border-dark-border mt-12 pt-8 text-center">
-                <p class="text-gray-600 dark:text-gray-muted text-sm">© {{ date('Y') }} Ennova. Tous droits réservés. Porté par <span class="text-orange">Enna Digital</span></p>
+                <p class="text-gray-600 dark:text-white text-sm">© {{ date('Y') }} Ennova. {{ __('messages.footer.rights') }} {{ __('messages.footer.powered') }} <span class="text-orange">Enna Digital</span></p>
             </div>
         </div>
     </footer>

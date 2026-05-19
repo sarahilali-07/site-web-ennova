@@ -20,5 +20,6 @@ class SocialLink extends Model
         'LinkedIn',
         'YouTube',
         'TikTok',
+        'WhatsApp',
     ];
 }

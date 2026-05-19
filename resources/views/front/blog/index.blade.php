@@ -1,26 +1,26 @@
 @extends('front.layouts.app')
-@section('title', 'Blog')
+@section('title', __('messages.blog.title'))
 
 @section('content')
 <div class="pt-24 pb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {{-- Header --}}
         <div class="mb-12">
-            <span class="text-orange text-xs font-semibold uppercase tracking-widest">Contenu</span>
-            <h1 class="font-display font-bold text-5xl text-gray-900 dark:text-white mt-3 mb-4">Blog</h1>
-            <p class="text-gray-700 dark:text-gray-light text-lg max-w-2xl">Découvrez nos articles et actualités sur l'innovation, l'entrepreneuriat et le développement personnel.</p>
+            <span class="text-orange text-xs font-semibold uppercase tracking-widest">{{ __('messages.blog.badge') }}</span>
+            <h1 class="font-display font-bold text-5xl text-gray-900 dark:text-white mt-3 mb-4">{{ __('messages.blog.title') }}</h1>
+            <p class="text-gray-700 dark:text-gray-light text-lg max-w-2xl">{{ __('messages.blog.subtitle') }}</p>
         </div>
 
         {{-- Search + Filter --}}
         <form method="GET" class="flex flex-col sm:flex-row gap-4 mb-10">
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="Rechercher un article..." class="flex-1 bg-dark-card border border-dark-border text-white text-sm px-4 py-3 rounded-xl placeholder-gray-muted focus:outline-none focus:border-orange/50 transition-colors">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('messages.blog.search') }}" class="flex-1 bg-dark-card border border-dark-border text-white text-sm px-4 py-3 rounded-xl placeholder-gray-muted focus:outline-none focus:border-orange/50 transition-colors">
             <select name="category" class="bg-dark-card border border-dark-border text-gray-light text-sm px-4 py-3 rounded-xl focus:outline-none focus:border-orange/50 transition-colors">
-                <option value="">Toutes les catégories</option>
+                <option value="">{{ __('messages.blog.all_categories') }}</option>
                 @foreach($categories as $cat)
                     <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                 @endforeach
             </select>
-            <button type="submit" class="bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3 rounded-xl transition-colors">Filtrer</button>
+            <button type="submit" class="bg-orange hover:bg-orange-dark text-white font-semibold px-6 py-3 rounded-xl transition-colors">{{ __('messages.blog.filter') }}</button>
         </form>
 
         {{-- Posts Grid --}}
@@ -45,7 +45,7 @@
                     <h2 class="font-display font-bold text-white text-lg mb-2 line-clamp-2">{{ $post->title }}</h2>
                     <p class="text-gray-muted text-sm leading-relaxed mb-4 line-clamp-3">{{ $post->excerpt }}</p>
                     <a href="{{ route('blog.show', $post) }}" class="inline-flex items-center space-x-2 bg-orange hover:bg-orange-dark text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
-                        <span>Lire plus</span>
+                        <span>{{ __('messages.blog.read_more') }}</span>
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
                 </div>
@@ -59,7 +59,7 @@
         @else
         <div class="text-center py-20">
             <svg class="w-16 h-16 text-dark-border mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <p class="text-gray-muted">Aucun article trouvé.</p>
+            <p class="text-gray-muted">{{ __('messages.blog.no_posts') }}</p>
         </div>
         @endif
     </div>

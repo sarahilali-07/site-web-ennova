@@ -53,6 +53,15 @@ Route::view('/contact', 'front.contact')->name('contact');
 Route::view('/associations', 'front.associations')->name('associations');
 
 
+// Language switcher
+Route::get('/lang/{locale}', function (string $locale) {
+    if (! in_array($locale, ['fr', 'en'])) {
+        abort(400);
+    }
+    session(['locale' => $locale]);
+    return redirect()->back();
+})->name('lang.switch');
+
 // Contact form
 Route::post('/contact', function (Request $request) {
 
@@ -65,7 +74,7 @@ Route::post('/contact', function (Request $request) {
 
     Message::create($request->only('name', 'email', 'subject', 'message'));
 
-    return back()->with('success', 'Message sent successfully');
+    return back()->with('success', __('messages.flash.message_sent'));
 
 })->name('contact.store');
 
@@ -114,7 +123,7 @@ Route::post('/podcast-guest', function (Request $request) {
         'message' => "Position: {$request->position}\nOrganization: {$request->organization}\nPhone: {$request->phone}\nTopic: {$request->topic}\n\nMotivation:\n{$request->motivation}",
     ]);
 
-    return back()->with('success', 'Votre candidature a été reçue avec succès. Nous vous contacterons bientôt !');
+    return back()->with('success', __('messages.flash.podcast_applied'));
 })->name('podcast-guest.store');
 
 
@@ -165,7 +174,7 @@ Route::post('/login', function (Request $request) {
     }
 
     return back()->withErrors([
-        'email' => 'Invalid credentials',
+        'email' => __('messages.flash.login_error'),
     ]);
 
 })->middleware('guest');
@@ -240,5 +249,8 @@ Route::prefix('admin')
         Route::resource('social-links', SocialLinkController::class)->except(['show']);
 
         Route::post('messages/{message}/reply', [MessageController::class, 'reply'])->name('messages.reply');
+
+        Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+        Route::put('settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
 
     });

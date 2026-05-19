@@ -1,7 +1,7 @@
 @extends('admin.layouts.layout')
 
 @section('title', $post->title)
-@section('page-title', 'Article')
+@section('page-title', __('messages.admin.posts.title'))
 
 @section('admin-content')
 
@@ -14,11 +14,11 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
         </svg>
-        <span>Retour aux articles</span>
+        <span>{{ __('messages.admin.posts.back') }}</span>
     </a>
 
     <!-- Card -->
-    <div class="bg-dark-card border border-dark-border rounded-2xl overflow-hidden">
+    <div class="bg-white dark:bg-dark-card border border-light-border dark:border-dark-border rounded-2xl overflow-hidden shadow-sm">
 
         <!-- Image -->
         @if($post->image)
@@ -29,26 +29,26 @@
         <div class="p-8">
 
             <!-- Title -->
-            <h1 class="text-white text-3xl font-bold mb-3">
+            <h1 class="text-gray-900 dark:text-white text-3xl font-bold mb-3">
                 {{ $post->title }}
             </h1>
 
             <!-- Meta -->
             <div class="flex flex-wrap gap-4 text-sm text-gray-500 mb-6">
-                <span>📂 {{ $post->category->name ?? 'Sans catégorie' }}</span>
+                <span>📂 {{ $post->category->name ?? __('messages.blog.category') }}</span>
                 <span>📅 {{ $post->created_at->format('d/m/Y H:i') }}</span>
-                <span>✍️ Ennova Blog</span>
+                <span>✍️ {{ __('messages.blog.title') }}</span>
             </div>
 
             <!-- Excerpt -->
             @if($post->excerpt)
-                <p class="text-gray-400 italic mb-6">
+                <p class="text-gray-600 dark:text-gray-400 italic mb-6">
                     {{ $post->excerpt }}
                 </p>
             @endif
 
             <!-- Content -->
-            <div class="text-gray-300 leading-relaxed whitespace-pre-line">
+            <div class="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
                 {{ $post->content }}
             </div>
 
@@ -57,19 +57,19 @@
 
                 <a href="{{ route('admin.posts.edit', $post) }}"
                    class="bg-orange hover:bg-orange-dark text-white font-semibold px-5 py-2.5 rounded-xl">
-                    Éditer
+                    {{ __('messages.admin.posts.edit') }}
                 </a>
 
                 <form method="POST"
                       action="{{ route('admin.posts.destroy', $post) }}"
-                      onsubmit="return confirm('Supprimer cet article ?')">
+                      onsubmit="return confirm('{{ __('messages.admin.posts.delete') }} ?')">
 
                     @csrf
                     @method('DELETE')
 
                     <button type="submit"
                             class="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2.5 rounded-xl">
-                        Supprimer
+                        {{ __('messages.admin.posts.delete') }}
                     </button>
                 </form>
 

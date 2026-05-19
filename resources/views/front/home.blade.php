@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 
-@section('title', 'Accueil')
-@section('meta_description', 'Ennova - Là où naissent les futurs leaders du marketing. Compétition nationale de marketing inter-écoles au Maroc.')
+@section('title', __('messages.nav.home'))
+@section('meta_description', __('messages.home.meta_description'))
 
 @section('content')
 
@@ -18,31 +18,30 @@
         <div class="fade-in">
             <div class="inline-flex items-center space-x-2 bg-orange/10 border border-orange/20 text-orange text-xs font-semibold px-4 py-2 rounded-full mb-6">
                 <span class="w-2 h-2 bg-orange rounded-full animate-pulse"></span>
-                <span>BIENVENUE CHEZ ENNOVA</span>
+                <span>{{ __('messages.home.hero.badge') }}</span>
             </div>
             <h1 class="font-display font-bold text-5xl lg:text-6xl xl:text-7xl leading-[1.05] text-gray-900 dark:text-white mb-6">
-                Ennova - Là où naissent<br>
-                les futurs leaders du<br>
-                <span class="gradient-text">marketing</span>
+                {{ __('messages.hero.heading_line1') }}<br>
+                {{ __('messages.hero.heading_line2') }}<br>
+                <span class="gradient-text">{{ __('messages.hero.heading_word') }}</span>
             </h1>
             <p class="text-gray-600 dark:text-gray-light text-lg leading-relaxed mb-8 max-w-lg">
-                compétition nationale et plateforme podcast connectant étudiants, marques et
-professionnels du marketing.
+                {{ __('messages.home.hero.description') }}
             <div class="flex flex-wrap gap-4">
                 <a href="{{ route('candidature') }}" class="bg-orange hover:bg-orange-dark text-white font-semibold px-7 py-3.5 rounded-xl transition-colors orange-glow inline-flex items-center space-x-2">
-                    <span>Postuler maintenant</span>
+                    <span>{{ __('messages.hero.apply') }}</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
                 <a href="{{ route('competition') }}" class="border border-dark-border text-gray-900 dark:text-white font-semibold px-7 py-3.5 rounded-xl transition-colors hover:border-orange/40 inline-flex items-center space-x-2 glass">
                     <svg class="w-4 h-4 text-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    <span>Découvrir Ennova</span>
+                    <span>{{ __('messages.hero.learn') }}</span>
                 </a>
             </div>
         </div>
         <div class="relative hidden lg:block">
             <div class="relative z-10">
                 <div class="bg-dark-card border border-dark-border rounded-2xl overflow-hidden" style="background: linear-gradient(135deg, #111118, #0A0A0F);">
-                   <img src="{{ asset('images/image.png') }}" alt="Étudiants Ennova" class="w-full h-80 object-cover opacity-80">
+                   <img src="{{ asset('images/image.png') }}" alt="Ennova" class="w-full h-80 object-cover opacity-80">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent rounded-2xl"></div>
                 </div>
                 {{-- Floating stat card --}}
@@ -53,13 +52,13 @@ professionnels du marketing.
                         </div>
                         <div>
                             <p class="font-display font-bold text-white text-lg">2500+</p>
-                            <p class="text-gray-muted text-xs">Étudiants actifs</p>
+                            <p class="text-gray-muted text-xs">{{ __('messages.home.stats.students_label') }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="absolute -top-4 -right-4 bg-orange rounded-xl px-4 py-3">
                     <p class="font-display font-bold text-white text-base">30+</p>
-                    <p class="text-orange-light text-xs">Partenaires</p>
+                    <p class="text-orange-light text-xs">{{ __('messages.home.stats.partners_label') }}</p>
                 </div>
             </div>
         </div>
@@ -75,21 +74,21 @@ professionnels du marketing.
                     <svg class="w-6 h-6 text-orange" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg>
                 </div>
                 <p class="font-display font-bold text-3xl text-gray-900 dark:text-white">2500+</p>
-                <p class="text-gray-500 dark:text-gray-muted text-sm mt-1">Étudiants accompagnés</p>
+                <p class="text-gray-500 dark:text-gray-muted text-sm mt-1">{{ __('messages.home.stats.students_accompanied') }}</p>
             </div>
             <div class="stat-card rounded-2xl p-6">
                 <div class="w-12 h-12 bg-orange/10 rounded-xl flex items-center justify-center mx-auto mb-3">
                     <svg class="w-6 h-6 text-orange" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
                 </div>
                 <p class="font-display font-bold text-3xl text-gray-900 dark:text-white">120+</p>
-                <p class="text-gray-500 dark:text-gray-muted text-sm mt-1">Projets réalisés</p>
+                <p class="text-gray-500 dark:text-gray-muted text-sm mt-1">{{ __('messages.home.stats.projects') }}</p>
             </div>
             <div class="stat-card rounded-2xl p-6">
                 <div class="w-12 h-12 bg-orange/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <svg class="w-6 h-6 text-orange" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/></svg>
+                    <svg class="w-6 h-6 text-orange" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/></svg>
                 </div>
                 <p class="font-display font-bold text-3xl text-gray-900 dark:text-white">30+</p>
-                <p class="text-gray-500 dark:text-gray-muted text-sm mt-1">Partenaires actifs</p>
+                <p class="text-gray-500 dark:text-gray-muted text-sm mt-1">{{ __('messages.home.stats.active_partners') }}</p>
             </div>
         </div>
     </div>
@@ -100,12 +99,12 @@ professionnels du marketing.
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-                <span class="text-orange text-xs font-semibold uppercase tracking-widest">À propos de Ennova</span>
-                <h2 class="font-display font-bold text-4xl text-gray-900 dark:text-white mt-3 mb-6">La plateforme qui <span class="gradient-text">connecte</span> et inspire</h2>
-                <p class="text-gray-700 dark:text-gray-light leading-relaxed mb-6">Ennova est une plateforme dédiée à l'innovation et à l'entrepreneuriat des jeunes. Nous accompagnons les étudiants dans la réalisation de leurs projets et leur ouverture sur le monde professionnel.</p>
-                <p class="text-gray-700 dark:text-gray-light leading-relaxed mb-8">Notre mission est de créer des ponts entre les étudiants en marketing, les associations, les influenceurs, les professionnels et les entreprises pour un impact social réel.</p>
+                <span class="text-orange text-xs font-semibold uppercase tracking-widest">{{ __('messages.home.about.badge') }}</span>
+                <h2 class="font-display font-bold text-4xl text-gray-900 dark:text-white mt-3 mb-6">{!! __('messages.home.about.heading') !!}</h2>
+                <p class="text-gray-700 dark:text-gray-light leading-relaxed mb-6">{{ __('messages.home.about.desc1') }}</p>
+                <p class="text-gray-700 dark:text-gray-light leading-relaxed mb-8">{{ __('messages.home.about.desc2') }}</p>
                 <a href="{{ route('competition') }}" class="inline-flex items-center space-x-2 bg-dark-card border border-dark-border hover:border-orange/40 text-white font-semibold px-6 py-3 rounded-xl transition-colors">
-                    <span>En savoir plus</span>
+                    <span>{{ __('messages.hero.learn') }}</span>
                     <svg class="w-4 h-4 text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
             </div>
@@ -135,11 +134,11 @@ professionnels du marketing.
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between mb-12">
             <div>
-                <span class="text-orange text-xs font-semibold uppercase tracking-widest">Contenu</span>
-                <h2 class="font-display font-bold text-3xl text-gray-900 dark:text-white mt-2">Articles récents</h2>
+                <span class="text-orange text-xs font-semibold uppercase tracking-widest">{{ __('messages.home.featured.badge') }}</span>
+                <h2 class="font-display font-bold text-3xl text-gray-900 dark:text-white mt-2">{{ __('messages.home.featured.title') }}</h2>
             </div>
             <a href="{{ route('blog.index') }}" class="text-orange text-sm font-semibold hover:text-orange-light transition-colors flex items-center space-x-1">
-                <span>Voir tous les articles</span>
+                <span>{{ __('messages.home.featured.view_all') }}</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
         </div>
@@ -161,7 +160,7 @@ professionnels du marketing.
                     <p class="text-gray-muted text-sm leading-relaxed mb-4 line-clamp-2">{{ $post->excerpt }}</p>
                     <div class="flex items-center justify-between">
                         <span class="text-gray-muted text-xs">{{ $post->created_at->format('d M Y') }}</span>
-                        <a href="{{ route('blog.show', $post) }}" class="text-orange text-sm font-semibold hover:text-orange-light transition-colors">Lire plus →</a>
+                        <a href="{{ route('blog.show', $post) }}" class="text-orange text-sm font-semibold hover:text-orange-light transition-colors">{{ __('messages.home.featured.read_more') }} →</a>
                     </div>
                 </div>
             </article>
@@ -176,9 +175,9 @@ professionnels du marketing.
 <section class="py-16 border-t border-dark-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between mb-10">
-            <h2 class="font-display font-bold text-2xl text-gray-900 dark:text-white">Nos partenaires</h2>
+            <h2 class="font-display font-bold text-2xl text-gray-900 dark:text-white">{{ __('messages.home.partners.title') }}</h2>
             <a href="{{ route('partners') }}" class="text-orange text-sm font-semibold hover:text-orange-light transition-colors flex items-center space-x-1">
-                <span>Voir tous les partenaires</span>
+                <span>{{ __('messages.home.partners.view_all') }}</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
         </div>
@@ -199,14 +198,14 @@ professionnels du marketing.
 <section class="py-20">
     <div class="max-w-4xl mx-auto px-4 text-center">
         <div class="bg-gradient-to-br from-orange/10 to-transparent border border-orange/20 rounded-3xl p-12">
-                <h2 class="font-display font-bold text-4xl lg:text-5xl text-gray-900 dark:text-white mb-4">Prêt à rejoindre <span class="gradient-text">Ennova</span> ?</h2>
-                <p class="text-gray-700 dark:text-gray-light text-lg mb-8 max-w-xl mx-auto">Postulez dès maintenant et faites partie de la prochaine génération de leaders du marketing au Maroc.</p>
+                <h2 class="font-display font-bold text-4xl lg:text-5xl text-gray-900 dark:text-white mb-4">{!! __('messages.home.cta.title') !!}</h2>
+                <p class="text-gray-700 dark:text-gray-light text-lg mb-8 max-w-xl mx-auto">{{ __('messages.home.cta.description') }}</p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="{{ route('candidature') }}" class="bg-orange hover:bg-orange-dark text-white font-semibold px-8 py-4 rounded-xl transition-colors orange-glow text-lg">
-                    Postuler maintenant
+                    {{ __('messages.hero.apply') }}
                 </a>
                 <a href="{{ route('contact') }}" class="border border-dark-border hover:border-orange/40 text-gray-900 dark:text-white font-semibold px-8 py-4 rounded-xl transition-colors glass text-lg">
-                    Nous contacter
+                    {{ __('messages.home.cta.contact') }}
                 </a>
             </div>
         </div>
