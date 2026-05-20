@@ -52,13 +52,13 @@
                         </div>
                         <div>
                             <p class="font-display font-bold text-white text-lg">2500+</p>
-                            <p class="text-gray-muted text-xs">{{ __('messages.home.stats.students_label') }}</p>
+                            <p class="text-white text-xs">{{ __('messages.home.stats.students_label') }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="absolute -top-4 -right-4 bg-orange rounded-xl px-4 py-3">
                     <p class="font-display font-bold text-white text-base">30+</p>
-                    <p class="text-orange-light text-xs">{{ __('messages.home.stats.partners_label') }}</p>
+                    <p class="text-white text-xs">{{ __('messages.home.stats.partners_label') }}</p>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="@yield('meta_description', __('messages.home.meta_description'))">
     <title>@yield('title', 'Ennova') | Marketers Ready To Be</title>
+    <script>(function(){var t=localStorage.getItem('theme-preference');if(t==='dark'||t==='light'){if(t==='dark')document.documentElement.classList.add('dark')}else{document.documentElement.classList.add('dark')}})()</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -106,14 +107,10 @@
                     </button>
 
                     {{-- Language Switcher --}}
-                    <div class="relative flex items-center">
-                        <a href="{{ route('lang.switch', 'fr') }}" class="text-sm font-medium {{ session('locale', config('app.locale')) == 'fr' ? 'text-orange' : 'text-gray-800 dark:text-gray-400 hover:text-orange dark:hover:text-orange' }} transition-colors px-1.5" title="{{ __('messages.nav.french') }}">
-                            <svg class="w-5 h-5 inline-block" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="480" fill="#fff"/><rect width="213.3" height="480" fill="#002654"/><rect x="426.7" width="213.3" height="480" fill="#ce1126"/></svg>
-                        </a>
-                        <span class="text-gray-800 dark:text-gray-muted text-xs mx-0.5">|</span>
-                        <a href="{{ route('lang.switch', 'en') }}" class="text-sm font-medium {{ session('locale', config('app.locale')) == 'en' ? 'text-orange' : 'text-gray-800 dark:text-gray-400 hover:text-orange dark:hover:text-orange' }} transition-colors px-1.5" title="{{ __('messages.nav.english') }}">
-                            <svg class="w-5 h-5 inline-block" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="480" fill="#012169"/><path d="M0 0l640 480M640 0L0 480" stroke="#fff" stroke-width="60"/><path d="M0 0l640 480M640 0L0 480" stroke="#c8102e" stroke-width="30"/><path d="M0 240h640M320 0v480" stroke="#fff" stroke-width="120"/><path d="M0 240h640M320 0v480" stroke="#c8102e" stroke-width="60"/></svg>
-                        </a>
+                    <div class="relative flex items-center space-x-1">
+                        <a href="{{ route('lang.switch', 'fr') }}" class="text-sm font-semibold uppercase tracking-wider {{ session('locale', config('app.locale')) == 'fr' ? 'text-orange' : 'text-gray-800 dark:text-gray-400 hover:text-orange dark:hover:text-orange' }} transition-colors px-1.5" title="{{ __('messages.nav.french') }}">FR</a>
+                        <span class="text-gray-300 dark:text-gray-600 text-xs">|</span>
+                        <a href="{{ route('lang.switch', 'en') }}" class="text-sm font-semibold uppercase tracking-wider {{ session('locale', config('app.locale')) == 'en' ? 'text-orange' : 'text-gray-800 dark:text-gray-400 hover:text-orange dark:hover:text-orange' }} transition-colors px-1.5" title="{{ __('messages.nav.english') }}">EN</a>
                     </div>
 
                     @guest

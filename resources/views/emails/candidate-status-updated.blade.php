@@ -11,9 +11,16 @@
             <td align="center">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px; background:#ffffff; border:1px solid #e5e7eb; border-radius:18px; overflow:hidden;">
                     <tr>
-                        <td style="padding:28px 32px; background:#0A0A0F; color:#ffffff;">
+                     <td style="padding:36px 32px 28px; background:#0A0A0F; text-align:center;" align="center">
+                             @php $logoPath = public_path('images/logo-email.png'); @endphp
+                             @if(file_exists($logoPath))
+                             <img src="{{ $message->embed($logoPath) }}" alt="Ennova - National Marketing Competition" width="170"
+                                  style="display:block; margin:0 auto 22px; border:0; outline:none; max-width:170px; height:auto;">
+                             @else
+                             <div style="width:170px; height:47px; margin:0 auto 22px; background:#0A0A0F; border:2px solid #F97316; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:900; color:#F97316; letter-spacing:1px;">E</div>
+                             @endif
                             <div style="font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:{{ $content['accent'] }}; font-weight:700;">{{ $content['eyebrow'] }}</div>
-                            <h1 style="margin:10px 0 0; font-size:28px; line-height:1.25; font-weight:800;">{{ $content['headline'] }}</h1>
+                            <h1 style="margin:10px 0 0; font-size:28px; line-height:1.25; font-weight:800; color:#ffffff;">{{ $content['headline'] }}</h1>
                         </td>
                     </tr>
                     <tr>

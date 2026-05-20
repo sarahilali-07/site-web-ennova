@@ -26,18 +26,18 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}" class="space-y-5">
+        <form method="POST" action="{{ route('login') }}" class="space-y-5" autocomplete="off">
             @csrf
 
             <div>
                 <label for="email" class="block text-sm font-semibold text-gray-300 mb-2">{{ __('messages.auth.login.email') }}</label>
-                <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus
+                <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus autocomplete="off"
                     class="w-full rounded-3xl border border-dark-border bg-[#111118] px-5 py-3 text-white placeholder:text-gray-500 outline-none focus:border-orange focus:ring-2 focus:ring-orange/20" />
             </div>
 
             <div>
                 <label for="password" class="block text-sm font-semibold text-gray-300 mb-2">{{ __('messages.auth.login.password') }}</label>
-                <input id="password" name="password" type="password" required
+                <input id="password" name="password" type="password" required autocomplete="new-password"
                     class="w-full rounded-3xl border border-dark-border bg-[#111118] px-5 py-3 text-white placeholder:text-gray-500 outline-none focus:border-orange focus:ring-2 focus:ring-orange/20" />
             </div>
 

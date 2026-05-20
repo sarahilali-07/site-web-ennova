@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\PodcastController as AdminPodcastController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -217,7 +218,7 @@ Route::prefix('admin')
                 'recentCandidates' => Candidature::latest()->take(6)->get(),
             ]);
 
-        })->name('dashboard');
+        })->name('dashboard')->middleware('permission:view dashboard');
 
 
         /*
@@ -227,30 +228,43 @@ Route::prefix('admin')
         */
 
         Route::resource('candidates', CandidateController::class)
-            ->only(['index', 'show']);
+            ->only(['index', 'show'])
+            ->middleware('permission:view candidates');
 
         Route::patch(
             'candidates/{candidate}/status',
             [CandidateController::class, 'updateStatus']
-        )->name('candidates.updateStatus');
+        )->name('candidates.updateStatus')->middleware('permission:update candidates');
 
 
-        Route::resource('posts', AdminPostController::class);
+        Route::resource('posts', AdminPostController::class)->middleware('permission:view posts|create posts|edit posts|delete posts');
 
-        Route::resource('podcasts', AdminPodcastController::class);
+        Route::resource('podcasts', AdminPodcastController::class)->middleware('permission:view podcasts|create podcasts|edit podcasts|delete podcasts');
 
-        Route::resource('partners', PartnerController::class);
-        Route::post('partners/{partner}/approve', [PartnerController::class, 'approve'])->name('partners.approve');
-        Route::post('partners/{partner}/reject', [PartnerController::class, 'reject'])->name('partners.reject');
+        Route::resource('partners', PartnerController::class)->middleware('permission:view partners|create partners|edit partners|delete partners');
+        Route::post('partners/{partner}/approve', [PartnerController::class, 'approve'])->name('partners.approve')->middleware('permission:approve partners');
+        Route::post('partners/{partner}/reject', [PartnerController::class, 'reject'])->name('partners.reject')->middleware('permission:approve partners');
 
         Route::resource('messages', MessageController::class)
-            ->only(['index', 'show', 'destroy']);
+            ->only(['index', 'show', 'destroy'])
+            ->middleware('permission:view messages|delete messages');
 
-        Route::resource('social-links', SocialLinkController::class)->except(['show']);
+        Route::resource('social-links', SocialLinkController::class)->except(['show'])->middleware('permission:view social links|create social links|edit social links|delete social links');
 
-        Route::post('messages/{message}/reply', [MessageController::class, 'reply'])->name('messages.reply');
+        Route::post('messages/{message}/reply', [MessageController::class, 'reply'])->name('messages.reply')->middleware('permission:reply messages');
 
-        Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
-        Route::put('settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
+        Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index')->middleware('permission:view settings');
+        Route::put('settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update')->middleware('permission:update settings');
+
+        /*
+        |--------------------------------------------------------------------------
+        | ADMIN USER & ROLE MANAGEMENT
+        |--------------------------------------------------------------------------
+        */
+
+        Route::resource('admins', AdminUserController::class)->middleware('permission:view admins|create admins|edit admins|delete admins');
+
+        Route::get('roles', [AdminUserController::class, 'roles'])->name('admins.roles')->middleware('permission:manage roles');
+        Route::put('roles', [AdminUserController::class, 'updateRoles'])->name('admins.roles.update')->middleware('permission:manage roles');
 
     });

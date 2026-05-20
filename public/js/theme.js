@@ -27,7 +27,7 @@
         if (saved === 'dark' || saved === 'light') {
             return saved;
         }
-        return getSystemTheme();
+        return 'dark';
     }
 
     // Apply theme to DOM
